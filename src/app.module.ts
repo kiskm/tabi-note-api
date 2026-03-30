@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TripsModule } from './trips/trips.module';
+import { Trip } from './trips/trip.entity';
 
 @Module({
   imports: [
@@ -12,9 +14,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'tabi_user',
       password: 'password',
       database: 'tabi_note',
-      entities: [],
+      entities: [Trip],
       synchronize: true, // 開発環境のみOK
     }),
+    TripsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
