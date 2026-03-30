@@ -24,7 +24,7 @@ export class Spot {
   @Column({ name: 'image_url', type: 'varchar', nullable: true })
   imageUrl: string | null;
 
-  @ManyToOne(() => Trip, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Trip, (trip) => trip.spots, { onDelete: 'CASCADE' })
   trip: Trip;
 
   @Column({ name: 'trip_id' })

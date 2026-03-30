@@ -6,6 +6,8 @@ import { TripsModule } from './trips/trips.module';
 import { Trip } from './trips/trip.entity';
 import { SpotsModule } from './spots/spots.module';
 import { Spot } from './spots/spot.entity';
+import { ExpensesModule } from './expenses/expenses.module';
+import { Expense } from './expenses/expense.entity';
 
 @Module({
   imports: [
@@ -16,11 +18,12 @@ import { Spot } from './spots/spot.entity';
       username: 'tabi_user',
       password: 'password',
       database: 'tabi_note',
-      entities: [Trip, Spot],
+      entities: [Trip, Spot, Expense],
       synchronize: true, // 開発環境のみOK
     }),
     TripsModule,
     SpotsModule,
+    ExpensesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

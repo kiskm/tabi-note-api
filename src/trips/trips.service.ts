@@ -17,7 +17,10 @@ export class TripsService {
   }
 
   async findOne(id: number): Promise<Trip> {
-    const trip = await this.tripsRepository.findOneBy({ id });
+    const trip = await this.tripsRepository.findOne({
+      where: { id },
+      relations: ['spots', 'expenses'],
+    });
     if (!trip) throw new NotFoundException(`Trip #${id} not found`);
     return trip;
   }

@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Spot } from '../spots/spot.entity';
+import { Expense } from '../expenses/expense.entity';
 
 export type TripStatus = 'want' | 'done';
 
@@ -24,4 +26,10 @@ export class Trip {
 
   @Column({ nullable: true, type: 'int' })
   budget: number | null;
+
+  @OneToMany(() => Spot, (spot) => spot.trip)
+  spots: Spot[];
+
+  @OneToMany(() => Expense, (expense) => expense.trip)
+  expenses: Expense[];
 }
