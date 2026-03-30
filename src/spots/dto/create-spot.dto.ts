@@ -1,15 +1,18 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateSpotDto {
   @IsString()
+  @MaxLength(100)
   name: string;
 
   @IsOptional()
   @IsString()
+  @MaxLength(50)
   category?: string;
 
   @IsOptional()
   @IsString()
+  @MaxLength(500)
   memo?: string;
 
   @IsOptional()
