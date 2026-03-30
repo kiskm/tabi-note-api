@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, HttpCode, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, HttpCode, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
+import { UpdateExpenseDto } from './dto/update-expense.dto';
 
 @Controller()
 export class ExpensesController {
@@ -12,6 +13,14 @@ export class ExpensesController {
     @Body() dto: CreateExpenseDto,
   ) {
     return this.expensesService.create(tripId, dto);
+  }
+
+  @Patch('expenses/:id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateExpenseDto,
+  ) {
+    return this.expensesService.update(id, dto);
   }
 
   @Delete('expenses/:id')

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Trip } from '../trips/trip.entity';
 
 @Entity('spots')
@@ -24,7 +24,11 @@ export class Spot {
   @Column({ name: 'image_url', type: 'varchar', nullable: true })
   imageUrl: string | null;
 
+  @Column({ default: false })
+  checked: boolean;
+
   @ManyToOne(() => Trip, (trip) => trip.spots, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'trip_id' })
   trip: Trip;
 
   @Column({ name: 'trip_id' })

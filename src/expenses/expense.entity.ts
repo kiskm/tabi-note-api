@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Trip } from '../trips/trip.entity';
 
 export type ExpenseCategory = 'transport' | 'hotel' | 'food' | 'other';
@@ -18,6 +18,7 @@ export class Expense {
   memo: string | null;
 
   @ManyToOne(() => Trip, (trip) => trip.expenses, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'trip_id' })
   trip: Trip;
 
   @Column({ name: 'trip_id' })
