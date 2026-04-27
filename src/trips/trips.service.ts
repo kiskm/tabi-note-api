@@ -13,7 +13,7 @@ export class TripsService {
   ) {}
 
   findAll(): Promise<Trip[]> {
-    return this.tripsRepository.find();
+    return this.tripsRepository.find({ relations: ['spots'] });
   }
 
   async findOne(id: number): Promise<Trip> {
