@@ -13,13 +13,13 @@ import { Expense } from './expenses/expense.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'tabi_user',
-      password: 'password',
-      database: 'tabi_note',
+      host: process.env.DB_HOST ?? 'localhost',
+      port: Number(process.env.DB_PORT ?? 5432),
+      username: process.env.DB_USER ?? 'tabi_user',
+      password: process.env.DB_PASSWORD ?? 'password',
+      database: process.env.DB_NAME ?? 'tabi_note',
       entities: [Trip, Spot, Expense],
-      synchronize: true, // 開発環境のみOK
+      synchronize: true,
     }),
     TripsModule,
     SpotsModule,
