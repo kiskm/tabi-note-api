@@ -8,6 +8,8 @@ import { SpotsModule } from './spots/spots.module';
 import { Spot } from './spots/spot.entity';
 import { ExpensesModule } from './expenses/expenses.module';
 import { Expense } from './expenses/expense.entity';
+import { AuthModule } from './auth/auth.module';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -18,12 +20,13 @@ import { Expense } from './expenses/expense.entity';
       username: process.env.DB_USER ?? 'tabi_user',
       password: process.env.DB_PASSWORD ?? 'password',
       database: process.env.DB_NAME ?? 'tabi_note',
-      entities: [Trip, Spot, Expense],
+      entities: [Trip, Spot, Expense, User],
       synchronize: true,
     }),
     TripsModule,
     SpotsModule,
     ExpensesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
