@@ -12,32 +12,35 @@ export class TripsService {
     private readonly tripsRepository: Repository<Trip>,
   ) {}
 
-  findAll(): Promise<Trip[]> {
-    return this.tripsRepository.find({ relations: ['spots'] });
+  findAll(userId: string): Promise<Trip[]> {
+    return this.tripsRepository.find({
+      where: { userId },
+      relations: ['spots'],
+    });
   }
 
-  async findOne(id: number): Promise<Trip> {
+  async findOne(id: number, userId: string): Promise<Trip> {
     const trip = await this.tripsRepository.findOne({
-      where: { id },
+      where: { id, userId },
       relations: ['spots', 'expenses'],
     });
     if (!trip) throw new NotFoundException(`Trip #${id} not found`);
     return trip;
   }
 
-  create(dto: CreateTripDto): Promise<Trip> {
-    const trip = this.tripsRepository.create(dto);
+  create(dto: CreateTripDto, userId: string): Promise<Trip> {
+    const trip = this.tripsRepository.create({ ...dto, userId });
     return this.tripsRepository.save(trip);
   }
 
-  async update(id: number, dto: UpdateTripDto): Promise<Trip> {
-    await this.findOne(id);
+  async update(id: number, dto: UpdateTripDto, userId: string): Promise<Trip> {
+    await this.findOne(id, userId);
     await this.tripsRepository.update(id, dto);
-    return this.findOne(id);
+    return this.findOne(id, userId);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.findOne(id);
+  async remove(id: number, userId: string): Promise<void> {
+    await this.findOne(id, userId);
     await this.tripsRepository.delete(id);
   }
 }

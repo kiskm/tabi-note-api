@@ -27,6 +27,9 @@ export class Trip {
   @Column({ nullable: true, type: 'int' })
   budget!: number | null;
 
+  @Column({ name: 'user_id', type: 'uuid' })
+  userId!: string;
+
   @OneToMany(() => Spot, (spot) => spot.trip)
   spots!: Spot[];
 
