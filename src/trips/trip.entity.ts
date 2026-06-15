@@ -7,29 +7,29 @@ export type TripStatus = 'want' | 'done';
 @Entity('trips')
 export class Trip {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  title: string;
+  title!: string;
 
   @Column({ name: 'start_date', type: 'date', nullable: true })
-  startDate: Date | null;
+  startDate!: Date | null;
 
   @Column({ name: 'end_date', type: 'date', nullable: true })
-  endDate: Date | null;
+  endDate!: Date | null;
 
   @Column({ type: 'varchar', nullable: true })
-  area: string | null;
+  area!: string | null;
 
   @Column({ type: 'varchar', default: 'want' })
-  status: TripStatus;
+  status!: TripStatus;
 
   @Column({ nullable: true, type: 'int' })
-  budget: number | null;
+  budget!: number | null;
 
   @OneToMany(() => Spot, (spot) => spot.trip)
-  spots: Spot[];
+  spots!: Spot[];
 
   @OneToMany(() => Expense, (expense) => expense.trip)
-  expenses: Expense[];
+  expenses!: Expense[];
 }

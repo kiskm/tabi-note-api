@@ -3,7 +3,7 @@ import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
 export class CreateSpotDto {
   @IsString()
   @MaxLength(100)
-  name: string;
+  name!: string;
 
   @IsOptional()
   @IsString()
