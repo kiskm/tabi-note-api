@@ -21,7 +21,7 @@ export class UsersService {
 
   // 登録時
   async create(
-    name: string,
+    username: string,
     email: string,
     hashedPassword: string,
   ): Promise<User> {
@@ -30,7 +30,7 @@ export class UsersService {
       throw new ConflictException('このメールアドレスはすでに登録されています');
 
     const user = this.usersRepository.create({
-      name,
+      username,
       email,
       password: hashedPassword,
     });
