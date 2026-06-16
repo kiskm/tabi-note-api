@@ -1,10 +1,18 @@
-import { IsDateString, IsIn, IsInt, IsOptional, IsString, MaxLength, Min } from 'class-validator';
+import {
+  IsDateString,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsString,
+  MaxLength,
+  Min,
+} from 'class-validator';
 import type { TripStatus } from '../trip.entity';
 
 export class CreateTripDto {
   @IsString()
   @MaxLength(100)
-  title: string;
+  title!: string;
 
   @IsOptional()
   @IsDateString()
