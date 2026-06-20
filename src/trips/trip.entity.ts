@@ -6,8 +6,8 @@ export type TripStatus = 'want' | 'done';
 
 @Entity('trips')
 export class Trip {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Column()
   title!: string;

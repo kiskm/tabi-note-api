@@ -19,7 +19,7 @@ export class TripsService {
     });
   }
 
-  async findOne(id: number, userId: string): Promise<Trip> {
+  async findOne(id: string, userId: string): Promise<Trip> {
     const trip = await this.tripsRepository.findOne({
       where: { id, userId },
       relations: ['spots', 'expenses'],
@@ -33,13 +33,13 @@ export class TripsService {
     return this.tripsRepository.save(trip);
   }
 
-  async update(id: number, dto: UpdateTripDto, userId: string): Promise<Trip> {
+  async update(id: string, dto: UpdateTripDto, userId: string): Promise<Trip> {
     await this.findOne(id, userId);
     await this.tripsRepository.update(id, dto);
     return this.findOne(id, userId);
   }
 
-  async remove(id: number, userId: string): Promise<void> {
+  async remove(id: string, userId: string): Promise<void> {
     await this.findOne(id, userId);
     await this.tripsRepository.delete(id);
   }
