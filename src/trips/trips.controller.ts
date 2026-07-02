@@ -5,7 +5,6 @@ import {
   Get,
   HttpCode,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
   Request,
@@ -44,7 +43,7 @@ export class TripsController {
 
   @Patch(':id')
   update(
-    @Param('id', ParseIntPipe) id: string,
+    @Param('id') id: string,
     @Body() dto: UpdateTripDto,
     @Request() req: { user: { userId: string } },
   ) {
@@ -54,7 +53,7 @@ export class TripsController {
   @Delete(':id')
   @HttpCode(204)
   remove(
-    @Param('id', ParseIntPipe) id: string,
+    @Param('id') id: string,
     @Request() req: { user: { userId: string } },
   ) {
     return this.tripsService.remove(id, req.user.userId);
