@@ -27,6 +27,6 @@ export class Expense {
   @JoinColumn({ name: 'trip_id' })
   trip!: Trip;
 
-  @Column({ name: 'trip_id' })
-  tripId!: number;
+  @Column({ name: 'trip_id', type: 'uuid' })
+  tripId!: string;
 }

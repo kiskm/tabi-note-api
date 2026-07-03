@@ -12,7 +12,7 @@ export class ExpensesService {
     private readonly expensesRepository: Repository<Expense>,
   ) {}
 
-  create(tripId: number, dto: CreateExpenseDto): Promise<Expense> {
+  create(tripId: string, dto: CreateExpenseDto): Promise<Expense> {
     const expense = this.expensesRepository.create({ ...dto, tripId });
     return this.expensesRepository.save(expense);
   }

@@ -12,7 +12,7 @@ export class SpotsService {
     private readonly spotsRepository: Repository<Spot>,
   ) {}
 
-  create(tripId: number, dto: CreateSpotDto): Promise<Spot> {
+  create(tripId: string, dto: CreateSpotDto): Promise<Spot> {
     const spot = this.spotsRepository.create({ ...dto, tripId });
     return this.spotsRepository.save(spot);
   }

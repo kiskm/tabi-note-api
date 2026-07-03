@@ -11,7 +11,7 @@ export class SpotsController {
 
   @Post('trips/:tripId/spots')
   create(
-    @Param('tripId', ParseIntPipe) tripId: number,
+    @Param('tripId') tripId: string,
     @Body() dto: CreateSpotDto,
   ) {
     return this.spotsService.create(tripId, dto);
