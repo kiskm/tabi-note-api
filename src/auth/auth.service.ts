@@ -13,7 +13,9 @@ export class AuthService {
   ) {}
 
   // ユーザー登録時
-  async register(dto: RegisterDto): Promise<{ accessToken: string }> {
+  async register(
+    dto: RegisterDto,
+  ): Promise<{ accessToken: string; username: string }> {
     const hashedPassword = await bcrypt.hash(dto.password, 10);
     const user = await this.usersService.create(
       dto.username,
@@ -23,12 +25,15 @@ export class AuthService {
     const accessToken = this.jwtService.sign({
       sub: user.id,
       email: user.email,
+      username: user.username,
     });
-    return { accessToken };
+    return { accessToken, username: user.username };
   }
 
   // ログイン時
-  async login(dto: LoginDTO): Promise<{ accessToken: string }> {
+  async login(
+    dto: LoginDTO,
+  ): Promise<{ accessToken: string; username: string }> {
     const user = await this.usersService.findByEmail(dto.email);
     if (!user)
       throw new UnauthorizedException(
@@ -44,7 +49,8 @@ export class AuthService {
     const accessToken = this.jwtService.sign({
       sub: user.id,
       email: user.email,
+      username: user.username,
     });
-    return { accessToken };
+    return { accessToken, username: user.username };
   }
 }
