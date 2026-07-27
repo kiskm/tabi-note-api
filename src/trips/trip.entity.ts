@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Spot } from '../spots/spot.entity';
 import { Expense } from '../expenses/expense.entity';
+import { Participant } from '../participants/participant.entity';
 
 export type TripStatus = 'want' | 'done';
 
@@ -35,4 +36,7 @@ export class Trip {
 
   @OneToMany(() => Expense, (expense) => expense.trip)
   expenses!: Expense[];
+
+  @OneToMany(() => Participant, (participant) => participant.trip)
+  participants!: Participant[];
 }

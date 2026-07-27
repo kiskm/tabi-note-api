@@ -22,7 +22,7 @@ export class TripsService {
   async findOne(id: string, userId: string): Promise<Trip> {
     const trip = await this.tripsRepository.findOne({
       where: { id, userId },
-      relations: ['spots', 'expenses'],
+      relations: ['spots', 'expenses', 'participants'],
     });
     if (!trip) throw new NotFoundException(`Trip #${id} not found`);
     return trip;
