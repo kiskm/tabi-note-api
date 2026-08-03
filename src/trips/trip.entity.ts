@@ -19,8 +19,8 @@ export class Trip {
   @Column({ name: 'end_date', type: 'date', nullable: true })
   endDate!: Date | null;
 
-  @Column({ type: 'varchar', nullable: true })
-  area!: string | null;
+  @Column({ type: 'text', array: true, default: '{}' })
+  area!: string[];
 
   @Column({ type: 'varchar', default: 'want' })
   status!: TripStatus;
