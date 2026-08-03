@@ -1,4 +1,6 @@
 import {
+  ArrayMinSize,
+  IsArray,
   IsDateString,
   IsIn,
   IsInt,
@@ -8,6 +10,7 @@ import {
   Min,
 } from 'class-validator';
 import type { TripStatus } from '../trip.entity';
+import { AREAS } from '../constants/areas';
 
 export class CreateTripDto {
   @IsString()
@@ -22,10 +25,10 @@ export class CreateTripDto {
   @IsDateString()
   endDate?: string;
 
-  @IsOptional()
-  @IsString()
-  @MaxLength(100)
-  area?: string;
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsIn(AREAS, { each: true })
+  area!: string[];
 
   @IsOptional()
   @IsIn(['want', 'done'])
