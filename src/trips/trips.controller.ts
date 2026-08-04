@@ -15,6 +15,10 @@ import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+type AuthedRequest = {
+  user: { userId: string; username: string; email: string };
+};
+
 @UseGuards(JwtAuthGuard)
 @Controller('trips')
 export class TripsController {
@@ -26,19 +30,23 @@ export class TripsController {
   }
 
   @Get(':id')
-  findOne(
-    @Param('id') id: string,
-    @Request() req: { user: { userId: string } },
-  ) {
-    return this.tripsService.findOne(id, req.user.userId);
+  findOne(@Param('id') id: string, @Request() req: AuthedRequest) {
+    return this.tripsService.findOne(
+      id,
+      req.user.userId,
+      req.user.username,
+      req.user.email,
+    );
   }
 
   @Post()
-  create(
-    @Body() dto: CreateTripDto,
-    @Request() req: { user: { userId: string } },
-  ) {
-    return this.tripsService.create(dto, req.user.userId);
+  create(@Body() dto: CreateTripDto, @Request() req: AuthedRequest) {
+    return this.tripsService.create(
+      dto,
+      req.user.userId,
+      req.user.username,
+      req.user.email,
+    );
   }
 
   @Patch(':id')

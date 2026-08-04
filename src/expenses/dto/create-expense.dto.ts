@@ -1,4 +1,6 @@
 import {
+  ArrayNotEmpty,
+  IsArray,
   IsIn,
   IsInt,
   IsOptional,
@@ -22,4 +24,13 @@ export class CreateExpenseDto {
   @IsString()
   @MaxLength(500)
   memo?: string;
+
+  @IsOptional()
+  @IsInt()
+  paidByParticipantId?: number;
+
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsInt({ each: true })
+  splitParticipantIds!: number[];
 }

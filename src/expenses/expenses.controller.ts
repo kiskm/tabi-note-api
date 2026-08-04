@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
@@ -20,18 +21,29 @@ export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
   @Post('trips/:tripId/expenses')
-  create(@Param('tripId') tripId: string, @Body() dto: CreateExpenseDto) {
-    return this.expensesService.create(tripId, dto);
+  create(
+    @Param('tripId') tripId: string,
+    @Body() dto: CreateExpenseDto,
+    @Request() req: { user: { userId: string } },
+  ) {
+    return this.expensesService.create(tripId, dto, req.user.userId);
   }
 
   @Patch('expenses/:id')
-  update(@Param('id') id: number, @Body() dto: UpdateExpenseDto) {
-    return this.expensesService.update(id, dto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateExpenseDto,
+    @Request() req: { user: { userId: string } },
+  ) {
+    return this.expensesService.update(id, dto, req.user.userId);
   }
 
   @Delete('expenses/:id')
   @HttpCode(204)
-  remove(@Param('id') id: number) {
-    return this.expensesService.remove(id);
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @Request() req: { user: { userId: string } },
+  ) {
+    return this.expensesService.remove(id, req.user.userId);
   }
 }
